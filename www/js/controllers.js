@@ -22,6 +22,7 @@ angular.module("AirBook")
         title_contains :null
     };
     var updating = false;
+    $scope.rangeFilter = [0, 100]
 
     var updateFromServer = function(page){
         updating = true;
@@ -54,8 +55,13 @@ angular.module("AirBook")
         console.log("filters", $scope.filters);
         updateFromServer(1);
     }
-    
 
+    $scope.updatePriceRange = function(){
+        $scope.filters.min_price = $scope.rangeFilter[0];
+        $scope.filters.max_price = $scope.rangeFilter[1];
+
+    };
+    
     $scope.$watch('filters', function(nv, ov){
         if(angular.equals(nv, ov)){
             return;

@@ -1,5 +1,5 @@
 
-angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll'])
+angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 'ui.bootstrap-slider'])
 
 .config(function($stateProvider, $urlRouterProvider, RestangularProvider){
 
