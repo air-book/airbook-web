@@ -29,6 +29,7 @@ angular.module("AirBook")
     };
 
     $scope.updateBooks = function(){
+        console.log("ss")
         if(updating){return;}
         if($scope.metadata && $scope.metadata.next){
             updateFromServer($scope.metadata.number + 1);

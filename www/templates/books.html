@@ -1,4 +1,4 @@
-<div class="row" infinite-scroll="updateBooks()" infinite-scroll-distance="2">
+<div class="row" infinite-scroll="updateBooks()" infinite-scroll-distance="2" infinite-scroll-disabled="!metadata.next">
     <div class="col col-md-3" ng-repeat="book in books">
         <div class="panel panel-default">
             
