@@ -4,9 +4,6 @@ angular.module("AirBook")
     $scope.globalMethod = function(){
         console.log(1);
     };
-
-    
-    
 })
 
 
@@ -18,10 +15,27 @@ angular.module("AirBook")
 .controller('BooksCtrl', function ($scope, Restangular) {
     console.log("Books")
 
-    Restangular.all('books').getList()
-    .then(function(data){
-        $scope.books = data;
-    })
+    $scope.books = [];
+    var updating = false;
+
+    var updateFromServer = function(page){
+        updating = true;
+        Restangular.all('books').getList({page:page})
+        .then(function(data){
+            $scope.books = $scope.books.concat(data);
+            $scope.metadata = data.metadata;
+            updating = false;
+        });
+    };
+
+    $scope.updateBooks = function(){
+        if(updating){return;}
+        if($scope.metadata && $scope.metadata.next){
+            updateFromServer($scope.metadata.number + 1);
+        }
+    };
+
+    updateFromServer(1);
 
 
 })

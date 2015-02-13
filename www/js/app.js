@@ -1,5 +1,5 @@
 
-angular.module("AirBook", ['ui.router', 'restangular'])
+angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll'])
 
 .config(function($stateProvider, $urlRouterProvider, RestangularProvider){
 
@@ -13,7 +13,8 @@ angular.module("AirBook", ['ui.router', 'restangular'])
             newResponse.metadata = {
               count : response.count,
               next : response.next,
-              previous : response.previous
+              previous : response.previous,
+              number : response.number,
             }
         } else {
             newResponse = response;

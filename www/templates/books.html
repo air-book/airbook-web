@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row" infinite-scroll="updateBooks()" xinfinite-scroll-distance="3">
     <div class="col col-md-3" ng-repeat="book in books">
         <div class="panel panel-default">
             
@@ -7,6 +7,12 @@
                     <img class="book-list-image" ng-src="{{book.images[0].image_thumb}}" alt="">
                 </div>
                 <b>{{book.title}}</b>
+                <div>
+                    € {{ book.price|number:2 }}
+                </div>
+                <div>
+                    {{ book.description }}
+                </div>
                 <div>
                     <span ng-repeat="author in book.authors">
                         {{author.author}}
