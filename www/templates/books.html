@@ -2,12 +2,9 @@
     <div class="panel-body">
         <form novalidate>
             <div class="form-group">
-                <label >Prezzo minimo</label>
-                <input type="text" class="form-control" placeholder="min_price" ng-model="filters.min_price">
-            </div>
-            <div class="form-group">
-                <label >Prezzo massimo</label>
-                <input type="text" class="form-control" placeholder="max_price" ng-model="filters.max_price">
+                <label>Prezzo</label>
+                <slider range="true" min="0" max="1000" step="5" ng-model="rangeFilter" on-stop-slide="updatePriceRange()"></slider>
+
             </div>
             <div class="form-group">
                 <label >Titolo</label>
