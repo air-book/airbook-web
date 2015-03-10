@@ -1,3 +1,12 @@
 .book-list-image{
     max-height: 100px;
 }
+
+.modal-backdrop {
+  bottom: 0;
+  position: fixed;
+}
+
+.modal-open {
+  overflow: auto;
+}

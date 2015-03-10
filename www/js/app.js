@@ -1,5 +1,5 @@
 
-angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 'ui.bootstrap-slider'])
+angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 'ui.bootstrap-slider', 'ui.bootstrap'])
 
 .config(function($stateProvider, $urlRouterProvider, RestangularProvider){
 
@@ -21,9 +21,9 @@ angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 'ui.bo
         }
         return newResponse;
     });
-  
+
     RestangularProvider.setRequestSuffix('/?');
-    
+
     $urlRouterProvider.otherwise("/home");
     //
     // Now set up the states
@@ -31,15 +31,41 @@ angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 'ui.bo
     .state('home', {
       url: "/home",
       templateUrl: "templates/home.html",
-      controller  :'HomeCtrl'
+      controller: 'HomeCtrl'
     })
     .state('books', {
       url: "/books",
       templateUrl: "templates/books.html",
-      controller  :'BooksCtrl'
-      
+      controller: 'BooksCtrl'
     })
+    .state('booksdetail', {
+      url: "/books/:id",
+      templateUrl: "templates/booksdetail.html",
+      controller: 'BooksDetailCtrl'
+    })
+    .state('books.modal', {
+      url: "/modal/:id",
+      onEnter: function($modal,$stateParams,$state){
+        console.log('pippo',$stateParams)
+        $modal.open({
+            templateUrl: "templates/modal.html",
+            backdrop:'static',
+            resolve: {
+              book: function(Restangular) {
+                console.log('pippo',$stateParams)
 
+                return Restangular.all('books').get($stateParams.id)
+                }
+
+            },
+            controller: 'BooksModalCtrl'
+        }).result.finally(function() {
+          console.log('pippo')
+            $state.go('^');
+        });
+      }
+
+    })
 
 
 })

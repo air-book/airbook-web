@@ -25,12 +25,12 @@
 <div class="row" infinite-scroll="updateBooks()" infinite-scroll-distance="2" infinite-scroll-disabled="!metadata.next">
     <div class="col col-md-3" ng-repeat="book in books">
         <div class="panel panel-default">
-            
+
             <div class="panel-body">
                 <div>
-                    <img class="book-list-image" ng-src="{{book.images[0].image_thumb}}" alt="">
+                  <a ui-sref="books.modal({id:book.id})"> <img class="book-list-image" ng-src="{{book.images[0].image_thumb}}" alt=""> </a>
                 </div>
-                <b>{{book.title}}</b>
+                <a ui-sref="books.modal({id:book.id})"> <b>{{book.title}}</b></a>
                 <div>
                     € {{ book.price|number:2 }}
                 </div>
@@ -46,8 +46,9 @@
             <div class="panel-footer">
                 <span class="pull-right">{{book.bookshop_name}}</span>
                 <div class="clearfix"></div>
+
             </div>
         </div>
-        
+
     </div>
 </div>

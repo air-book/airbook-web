@@ -49,8 +49,8 @@ angular.module("AirBook")
         }
     };
 
-    
-    
+
+
     $scope.search = function(){
         console.log("filters", $scope.filters);
         updateFromServer(1);
@@ -61,7 +61,7 @@ angular.module("AirBook")
         $scope.filters.max_price = $scope.rangeFilter[1];
 
     };
-    
+
     $scope.$watch('filters', function(nv, ov){
         if(angular.equals(nv, ov)){
             return;
@@ -72,8 +72,21 @@ angular.module("AirBook")
 
     updateFromServer(1);
 
+})
+
+.controller('BooksDetailCtrl', function ($scope, Restangular, $stateParams) {
+
+  Restangular.all('books').get($stateParams.id)
+  .then(function(data){
+      $scope.book = data
+  });
+
 
 })
 
-
-
+.controller('BooksModalCtrl',function($scope, book) {
+  $scope.book=book;
+  $scope.dismiss = function() {
+    $scope.$dismiss();
+  };
+})
