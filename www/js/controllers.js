@@ -1,9 +1,24 @@
 angular.module("AirBook")
-.controller('AppCtrl', function ($scope, $rootScope) {
+.controller('AppCtrl', function ($scope, $rootScope, AuthService, $timeout, Restangular) {
 
-    $rootScope.appUser = {
+    $rootScope.appUser = {};
 
+    $rootScope.logout = function(){
+        AuthService.doLogout();
+        $timeout(function(){
+            $rootScope.appUser = {};
+        });
     };
+
+    console.log(1, AuthService.token)
+    if(AuthService.token){
+        Restangular.oneUrl('users/me').get()
+        .then(function(data){
+            $timeout(function(){
+                $rootScope.appUser = data;
+            });
+        });
+    }
 })
 
 
@@ -28,7 +43,13 @@ angular.module("AirBook")
                 $scope.$close();
             });
         });
-    }
+    };
+
+
+
+
+
+
 
 })
 
