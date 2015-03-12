@@ -46,7 +46,6 @@ angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 'ui.bo
     .state('books.modal', {
       url: "/modal/:id",
       onEnter: function($modal,$stateParams,$state){
-        console.log('pippo',$stateParams)
         $modal.open({
             templateUrl: "templates/modal.html",
             backdrop:'static',
