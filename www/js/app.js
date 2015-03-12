@@ -52,10 +52,8 @@ angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 'ui.bo
             backdrop:'static',
             resolve: {
               book: function(Restangular) {
-                console.log('pippo',$stateParams)
-
                 return Restangular.all('books').get($stateParams.id)
-                }
+              }
 
             },
             controller: 'BooksModalCtrl'
