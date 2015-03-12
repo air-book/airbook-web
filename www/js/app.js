@@ -1,5 +1,6 @@
 
-angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 'ui.bootstrap-slider', 'ui.bootstrap'])
+angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 
+  'ui.bootstrap-slider', 'ui.bootstrap', 'ct.ui.router.extras'])
 
 .config(function($stateProvider, $urlRouterProvider, RestangularProvider){
 
@@ -28,22 +29,33 @@ angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 'ui.bo
     //
     // Now set up the states
     $stateProvider
-    .state('home', {
+
+    .state('app', {
+      abstract : true,
+      sticky : true,
+      views : {
+        'app' : {
+          template : '<div ui-view></div>'
+        }
+      }
+    })
+
+    .state('app.home', {
       url: "/home",
       templateUrl: "templates/home.html",
       controller: 'HomeCtrl'
     })
-    .state('books', {
+    .state('app.books', {
       url: "/books",
       templateUrl: "templates/books.html",
       controller: 'BooksCtrl'
     })
-    .state('booksdetail', {
+    .state('app.booksdetail', {
       url: "/books/:id",
       templateUrl: "templates/booksdetail.html",
       controller: 'BooksDetailCtrl'
     })
-    .state('books.modal', {
+    .state('app.books.modal', {
       url: "/modal/:id",
       onEnter: function($modal,$stateParams,$state){
         $modal.open({
@@ -57,8 +69,33 @@ angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 'ui.bo
             },
             controller: 'BooksModalCtrl'
         }).result.finally(function() {
-          console.log('pippo')
             $state.go('^');
+        });
+      }
+
+    })
+
+    .state('modal', {
+      abstract : true
+    })
+
+    .state('modal.login', {
+      url: "/login",
+      onEnter: function($modal, $state, $previousState){
+        $modal.open({
+            templateUrl: "templates/login_modal.html",
+            backdrop:'static',
+            resolve: {
+            },
+            controller: 'LoginCtrl'
+        }).result.finally(function() {
+          console.log('asked login...')
+            var previous = $previousState.get();
+            if(previous){
+              $previousState.go();
+            } else {
+              $state.go('app.home');  
+            }
         });
       }
 

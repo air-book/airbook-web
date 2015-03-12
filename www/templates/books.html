@@ -28,9 +28,9 @@
 
             <div class="panel-body">
                 <div>
-                  <a ui-sref="books.modal({id:book.id})"> <img class="book-list-image" ng-src="{{book.images[0].image_thumb}}" alt=""> </a>
+                  <a ui-sref="app.books.modal({id:book.id})"> <img class="book-list-image" ng-src="{{book.images[0].image_thumb}}" alt=""> </a>
                 </div>
-                <a ui-sref="books.modal({id:book.id})"> <b>{{book.title}}</b></a>
+                <a ui-sref="app.books.modal({id:book.id})"> <b>{{book.title}}</b></a>
                 <div>
                     € {{ book.price|number:2 }}
                 </div>

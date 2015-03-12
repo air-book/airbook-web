@@ -11,6 +11,15 @@ angular.module("AirBook")
     console.log("Home")
 })
 
+.controller('LoginCtrl', function ($scope) {
+    console.log("Login");
+    $scope.dismiss = function() {
+        $scope.$dismiss();
+    };
+    $scope.doLogin = function(){}
+
+})
+
 
 .controller('BooksCtrl', function ($scope, Restangular) {
     console.log("Books")
