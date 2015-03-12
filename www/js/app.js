@@ -4,7 +4,7 @@ angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll',
 
 .config(function($stateProvider, $urlRouterProvider, RestangularProvider){
 
-    var baseServerUrl = '/books/';
+    var baseServerUrl = '/';
     RestangularProvider.setBaseUrl(baseServerUrl);
 
     RestangularProvider.setResponseExtractor(function(response, operation, what, url) {
@@ -63,7 +63,7 @@ angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll',
             backdrop:'static',
             resolve: {
               book: function(Restangular) {
-                return Restangular.all('books').get($stateParams.id)
+                return Restangular.all('books/books').get($stateParams.id)
               }
 
             },

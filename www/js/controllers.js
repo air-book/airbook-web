@@ -1,8 +1,8 @@
 angular.module("AirBook")
-.controller('AppCtrl', function ($scope) {
+.controller('AppCtrl', function ($scope, $rootScope) {
 
-    $scope.globalMethod = function(){
-        console.log(1);
+    $rootScope.appUser = {
+
     };
 })
 
@@ -11,12 +11,24 @@ angular.module("AirBook")
     console.log("Home")
 })
 
-.controller('LoginCtrl', function ($scope) {
-    console.log("Login");
+.controller('LoginCtrl', function ($scope, AuthService, Restangular, $timeout, $rootScope) {
+    $scope.credentials ={};
     $scope.dismiss = function() {
         $scope.$dismiss();
     };
-    $scope.doLogin = function(){}
+
+    $scope.doLogin = function(){
+        return AuthService.doLogin($scope.credentials)
+        .then(function(r){
+            Restangular.oneUrl('users/me').get()
+            .then(function(data){
+                $timeout(function(){
+                    $rootScope.appUser = data;
+                });
+                $scope.$close();
+            });
+        });
+    }
 
 })
 
@@ -42,7 +54,7 @@ angular.module("AirBook")
             $scope.books = [];
         }
 
-        Restangular.all('books').getList(params)
+        Restangular.all('books/books').getList(params)
         .then(function(data){
             console.log("response", data.metadata.count);
             $scope.books = $scope.books.concat(data);
@@ -85,7 +97,7 @@ angular.module("AirBook")
 
 .controller('BooksDetailCtrl', function ($scope, Restangular, $stateParams) {
 
-  Restangular.all('books').get($stateParams.id)
+  Restangular.all('books/books').get($stateParams.id)
   .then(function(data){
       $scope.book = data
   });
