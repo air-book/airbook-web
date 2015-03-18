@@ -38,10 +38,19 @@
                     {{ book.description }}
                 </div>
                 <div>
+                
+                </div>
+                <div>
                     <span ng-repeat="author in book.authors">
                         {{author.author}}
                     </span>
                 </div>
+                <!-- buttons for wishlist -->
+                <div ng-if="appUser.username">
+                    <button ng-if="!book.is_wished" class="btn btn-primary" ng-click="addBookToWishes(book)">Add to wish list</button>
+                    <button ng-if="book.is_wished" class="btn btn-danger" ng-click="removeBookFromWishes(book)">Remove from wish list</button>
+                </div>
+
             </div>
             <div class="panel-footer">
                 <span class="pull-right">{{book.bookshop_name}}</span>

@@ -1,5 +1,5 @@
 angular.module("AirBook")
-.controller('AppCtrl', function ($scope, $rootScope, AuthService, $timeout, Restangular) {
+.controller('AppCtrl', function ($scope, $rootScope, AuthService, $timeout, Restangular, UserAPI) {
 
     $rootScope.appUser = {};
 
@@ -10,7 +10,6 @@ angular.module("AirBook")
         });
     };
 
-    console.log(1, AuthService.token)
     if(AuthService.token){
         Restangular.oneUrl('users/me').get()
         .then(function(data){
@@ -19,6 +18,26 @@ angular.module("AirBook")
             });
         });
     }
+
+
+    $scope.addBookToWishes = function(book){
+        UserAPI.addWish(book.id)
+        .then(function(){
+            $timeout(function(){
+                book.is_wished = true;
+            })
+        })
+    };
+
+    $scope.removeBookFromWishes = function(book){
+        UserAPI.dropWish(book.id)
+        .then(function(){
+            $timeout(function(){
+                book.is_wished = false;
+            })
+        })
+    };
+
 })
 
 
@@ -54,8 +73,15 @@ angular.module("AirBook")
 })
 
 
-.controller('BooksCtrl', function ($scope, Restangular) {
+.controller('BooksCtrl', function ($scope, Restangular, UserAPI, $timeout) {
     console.log("Books")
+
+
+    $scope.UserAPI = UserAPI;
+    
+
+
+
 
     $scope.books = [];
     $scope.filters = {
