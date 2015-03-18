@@ -49,6 +49,10 @@
                 <div ng-if="appUser.username">
                     <button ng-if="!book.is_wished" class="btn btn-primary" ng-click="addBookToWishes(book)">Add to wish list</button>
                     <button ng-if="book.is_wished" class="btn btn-danger" ng-click="removeBookFromWishes(book)">Remove from wish list</button>
+
+                    <button ng-if="!book.in_cart" class="btn btn-primary" ng-click="addBookToCart(book)">Add to cart</button>
+                    <button ng-if="book.in_cart" class="btn btn-danger" ng-click="removeBookFromCart(book)">Remove from cart</button>
+
                 </div>
 
             </div>
