@@ -1,63 +1,78 @@
-<div class="panel">
-    <div class="panel-body">
-        <form novalidate>
-            <div class="form-group">
-                <label>Prezzo</label>
-                <slider range="true" min="0" max="1000" step="5" ng-model="rangeFilter" on-stop-slide="updatePriceRange()"></slider>
+<div id="wrapper" ng-class="{toggled:!menuopen}">
 
-            </div>
-            <div class="form-group">
-                <label >Titolo</label>
-                <input type="text" class="form-control" placeholder="titolo" ng-model="filters.title_contains">
-            </div>
-            <!--
-            <div>
-                <button class="btn btn-default" ng-click="search()">Cerca</button>
+  <!-- Sidebar -->
+  <a ng-click="toggleMenu()" class="btn btn-default" id="menu-toggle">X</a>
 
-            </div>
-            -->
+  <div id="sidebar-wrapper">
+    <ul class="sidebar-nav" style="padding:20px">
+      <li class="sidebar-brand">
+        <a href="#">
+          Airbook
+        </a>
+      </li>
 
-        </form>
+      <li>
+        <label>Prezzo</label>
+        <slider range="true" min="0" max="1000" step="5" ng-model="rangeFilter" on-stop-slide="updatePriceRange()"></slider>
+      </li>
+      <li>
+        <label >Titolo</label>
+        <input type="text" class="form-control" placeholder="titolo" ng-model="filters.title_contains">
+      </li>
+      <!--
+      <div>
+          <button class="btn btn-default" ng-click="search()">Cerca</button>
+
+      </div>
+      -->
+    </ul>
+  </div>
+
+  <!-- /#sidebar-wrapper -->
+  <div id="page-content-wrapper">
+    <div class="container-fluid">
+      <!-- Page Content -->
+      <div class="row" infinite-scroll="updateBooks()" infinite-scroll-distance="2" infinite-scroll-disabled="!metadata.next">
+          <div class="col" ng-class="{'col-md-3':!menuopen,'col-md-4':menuopen }" ng-repeat="book in books">
+              <div class="panel panel-default">
+
+                  <div class="panel-body">
+                      <div>
+                        <a ui-sref="app.books.modal({id:book.id})"> <img class="book-list-image" ng-src="{{book.images[0].image_thumb}}" alt=""> </a>
+                      </div>
+                      <a ui-sref="app.books.modal({id:book.id})"> <b>{{book.title}}</b></a>
+                      <div>
+                          € {{ book.price|number:2 }}
+                      </div>
+                      <div>
+                          {{ book.description }}
+                      </div>
+                      <div>
+
+                      </div>
+                      <div>
+                          <span ng-repeat="author in book.authors">
+                              {{author.author}}
+                          </span>
+                      </div>
+                      <!-- buttons for wishlist -->
+                      <div ng-if="appUser.username">
+                          <button ng-if="!book.is_wished" class="btn btn-primary" ng-click="addBookToWishes(book)">Add to wish list</button>
+                          <button ng-if="book.is_wished" class="btn btn-danger" ng-click="removeBookFromWishes(book)">Remove from wish list</button>
+                      </div>
+
+                  </div>
+                  <div class="panel-footer">
+                      <span class="pull-right">{{book.bookshop_name}}</span>
+                      <div class="clearfix"></div>
+
+                  </div>
+              </div>
+
+          </div>
+      </div>
+      <!-- /#page-content-wrapper -->
     </div>
+   </div>
 </div>
-
-
-<div class="row" infinite-scroll="updateBooks()" infinite-scroll-distance="2" infinite-scroll-disabled="!metadata.next">
-    <div class="col col-md-3" ng-repeat="book in books">
-        <div class="panel panel-default">
-
-            <div class="panel-body">
-                <div>
-                  <a ui-sref="app.books.modal({id:book.id})"> <img class="book-list-image" ng-src="{{book.images[0].image_thumb}}" alt=""> </a>
-                </div>
-                <a ui-sref="app.books.modal({id:book.id})"> <b>{{book.title}}</b></a>
-                <div>
-                    € {{ book.price|number:2 }}
-                </div>
-                <div>
-                    {{ book.description }}
-                </div>
-                <div>
-                
-                </div>
-                <div>
-                    <span ng-repeat="author in book.authors">
-                        {{author.author}}
-                    </span>
-                </div>
-                <!-- buttons for wishlist -->
-                <div ng-if="appUser.username">
-                    <button ng-if="!book.is_wished" class="btn btn-primary" ng-click="addBookToWishes(book)">Add to wish list</button>
-                    <button ng-if="book.is_wished" class="btn btn-danger" ng-click="removeBookFromWishes(book)">Remove from wish list</button>
-                </div>
-
-            </div>
-            <div class="panel-footer">
-                <span class="pull-right">{{book.bookshop_name}}</span>
-                <div class="clearfix"></div>
-
-            </div>
-        </div>
-
-    </div>
-</div>
+ <!-- /#wrapper -->

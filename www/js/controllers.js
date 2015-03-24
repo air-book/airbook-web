@@ -78,9 +78,12 @@ angular.module("AirBook")
 
 
     $scope.UserAPI = UserAPI;
-    
 
+    $scope.menuopen = true;
 
+    $scope.toggleMenu = function(){
+      $scope.menuopen =! $scope.menuopen;
+    }
 
 
     $scope.books = [];
