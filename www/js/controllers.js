@@ -38,6 +38,25 @@ angular.module("AirBook")
         })
     };
 
+    $scope.addBookToCart= function(book){
+        UserAPI.addCart(book.id)
+        .then(function(){
+            $timeout(function(){
+                book.in_cart = true;
+            })
+        })
+    };
+
+    $scope.removeBookFromCart = function(book){
+        UserAPI.dropCart(book.id)
+        .then(function(){
+            $timeout(function(){
+                book.in_cart = false;
+            })
+        })
+    };
+
+
 })
 
 
