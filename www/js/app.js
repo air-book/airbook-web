@@ -1,5 +1,5 @@
 
-angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll', 
+angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll',
   'ui.bootstrap-slider', 'ui.bootstrap', 'ct.ui.router.extras'])
 
 .config(function($stateProvider, $urlRouterProvider, RestangularProvider){
@@ -94,12 +94,50 @@ angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll',
             if(previous){
               $previousState.go();
             } else {
-              $state.go('app.home');  
+              $state.go('app.home');
             }
         });
       }
 
     })
+
+
+    .state('modal.cart', {
+      url: "/cart",
+      onEnter: function($modal,$stateParams,$state){
+        $modal.open({
+            templateUrl: "templates/cart_modal.html",
+            backdrop:'static',
+            resolve: {
+            },
+            controller: 'BooksCartCtrl'
+        }).result.finally(function() {
+            $state.go('^');
+        });
+      }
+    })
+
+
+
+    .state('modal.wish', {
+      url: "/wishlist",
+      onEnter: function($modal,$stateParams,$state){
+        $modal.open({
+            templateUrl: "templates/wishlist_modal.html",
+            backdrop:'static',
+            resolve: {
+            },
+            controller: 'BooksWishCtrl'
+        }).result.finally(function() {
+            $state.go('^');
+        });
+      }
+    })
+
+
+
+
+
 
 
 })

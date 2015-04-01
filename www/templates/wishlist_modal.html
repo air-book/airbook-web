@@ -2,12 +2,14 @@
   <button type="button" class="close" data-dismiss="modal" aria-hidden="true"  ng-click="dismiss()">×</button>
 
 
-  <h4 class="modal-title">{{book.title}}</h4>
+  <h4 class="modal-title">Wishlist</h4>
       </div>
       <div class="modal-body">
-        <p><img class="book-list-image" ng-src="{{book.images[0].image_thumb}}" alt=""></p>
-        <p>{{book.description}}</p>
-        
+        <div class="" ng-repeat = "bookinwishes in inWishes">
+          <p>{{bookinwishes.book_object.description}}</p>
+          <button type="button" name="button" ng-click="removeBookFromWishes(bookinwishes.book_object, $index)">xxx</button>
+        </div>
+
 
       </div>
       <div class="modal-footer">

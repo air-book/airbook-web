@@ -82,14 +82,10 @@ angular.module("AirBook")
             });
         });
     };
-
-
-
-
-
-
-
 })
+
+
+
 
 
 .controller('BooksCtrl', function ($scope, Restangular, UserAPI, $timeout) {
@@ -165,7 +161,6 @@ angular.module("AirBook")
 })
 
 .controller('BooksDetailCtrl', function ($scope, Restangular, $stateParams) {
-
   Restangular.all('books/books').get($stateParams.id)
   .then(function(data){
       $scope.book = data
@@ -178,5 +173,49 @@ angular.module("AirBook")
   $scope.book=book;
   $scope.dismiss = function() {
     $scope.$dismiss();
+  };
+})
+
+
+.controller('BooksCartCtrl',function($scope, UserAPI, $timeout) {
+  UserAPI.getCart()
+  .then(function(items){
+    $scope.inCart = items
+    console.log(items)
+  })
+  $scope.dismiss = function() {
+    $scope.$dismiss();
+  };
+
+  $scope.removeBookFromCart = function(book, index){
+      UserAPI.dropCart(book.id)
+      .then(function(){
+          $timeout(function(){
+            $scope.inCart.splice(index, 1);
+            console.log(1,   $scope.inCart)
+          })
+      })
+  };
+})
+
+
+.controller('BooksWishCtrl',function($scope, UserAPI, $timeout) {
+  UserAPI.getWishes()
+  .then(function(items){
+    $scope.inWishes = items
+    console.log(items)
+  })
+  $scope.dismiss = function() {
+    $scope.$dismiss();
+  };
+
+  $scope.removeBookFromWishes = function(book, index){
+      UserAPI.dropWish(book.id)
+      .then(function(){
+          $timeout(function(){
+            $scope.inWishes.splice(index, 1);
+            console.log(1,   $scope.inWishes)
+          })
+      })
   };
 })
