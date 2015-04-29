@@ -58,9 +58,7 @@
                       <!-- buttons for chart and wishlist when user is NOT logged -->
                       <div>
                           <button ng-if="!appUser.username" class="btn btn-primary" <a ui-sref="modal.login">Add to wish list</a></button>
-
-                          <button ng-if="!appUser.username" && "!book.in_cart" class="btn btn-primary" ng-click="addBookToCart(book)">Add to cart</button>
-                          <button ng-if="!appUser.username" &&  "book.in_cart" class="btn btn-danger" ng-click="removeBookFromCart(book)">Remove from cart</button>
+                          <button ng-if="!appUser.username" class="btn btn-primary" <a ui-sref="modal.login">Add to cart</a></button>
                       </div>
 
 
