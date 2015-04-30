@@ -1,6 +1,6 @@
 
 angular.module("AirBook", ['ui.router', 'restangular', 'infinite-scroll',
-  'ui.bootstrap-slider', 'ui.bootstrap', 'ct.ui.router.extras'])
+  'ui.bootstrap-slider', 'ui.bootstrap', 'ct.ui.router.extras','ui.materialize'])
 
 .config(function($stateProvider, $urlRouterProvider, RestangularProvider){
 

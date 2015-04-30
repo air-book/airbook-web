@@ -1,20 +1,14 @@
-<nav class="navbar navbar-default navbar-fixed-top" >
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" ui-sref="app.home">Home</a>
-    </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active"><a ui-sref="app.books">books <span class="sr-only">(current)</span></a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
+<div class="navbar-fixed">
+<nav>
+  <div class="nav-wrapper" >
+    <a class="brand-logo center" ui-sref="app.home">Airbook</a>
 
+      <ul id="nav-mobile" class="left hide-on-med-and-down">
+        <li class="active"><a ui-sref="app.books">books</a></li>
+      </ul>
+
+
+      <ul id="nav-mobile" class="right hide-on-med-and-down">
         <li><a ui-sref="modal.cart">Cart</a></li>
         <li><a ui-sref="modal.wish">Wishlist</a></li>
 
@@ -24,6 +18,6 @@
         <li ng-if="appUser.username"> <a ng-click="logout()">Logout</a></li>
       </ul>
 
-    </div>
   </div>
 </nav>
+</div>

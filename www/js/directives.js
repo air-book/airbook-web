@@ -5,9 +5,7 @@ angular.module("AirBook")
         templateUrl : 'templates/app_navbar.html',
         replace : true,
         link: function (scope, iElement, iAttrs) {
-            
+
         }
     };
 }])
-
-
