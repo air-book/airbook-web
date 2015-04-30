@@ -1,89 +1,67 @@
-<div id="wrapper" ng-class="{toggled:!menuopen}">
 
-  <!-- Sidebar -->
-  <a ng-click="toggleMenu()" class="btn btn-default" id="menu-toggle">X</a>
+  <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-closeonclick="false"><i
+          class="mdi-navigation-menu"></i></a></div>
+  <ul id="nav-mobile" class="side-nav fixed">
+      <li class="bold"><a ui-sref="app.home" class="waves-effect waves-teal">Airbook</a></li>
 
-  <div id="sidebar-wrapper">
-    <ul class="sidebar-nav" style="padding:20px">
-      <li class="sidebar-brand">
-        <a href="#">
-          Airbook
-        </a>
+
+            <li class="no-padding">
+              <ul>
+                <li>
+                  <form action="#">
+                    <p class="range-field">
+                      <label>Prezzo</label>
+                      <input type="range" id="slider" min="0" max="1000"  step="5" ng-model="rangeFilter" on-stop-slide= "updatePriceRange()" />
+                    </p>
+                  </form>
+                </li>
+              </ul>
+            </li>
+
+
+      <li class="no-padding">
+        <ul>
+          <li>
+            <div class="input-field col s6">
+              <input value="Alvin" id="title" type="text" class="validate" ng-model="filters.title_contains">
+              <label class="active" for="title">Titolo</label>
+            </div>
+          </li>
+        </ul>
       </li>
+  </ul>
 
-      <li>
-        <label>Prezzo</label>
-        <slider range="true" min="0" max="1000" step="5" ng-model="rangeFilter" on-stop-slide="updatePriceRange()"></slider>
-      </li>
-      <li>
-        <label >Titolo</label>
-        <input type="text" class="form-control" placeholder="titolo" ng-model="filters.title_contains">
-      </li>
-      <!--
-      <div>
-          <button class="btn btn-default" ng-click="search()">Cerca</button>
-
-      </div>
-      -->
-    </ul>
-  </div>
 
   <!-- /#sidebar-wrapper -->
-  <div id="page-content-wrapper">
     <div class="container-fluid">
       <!-- Page Content -->
       <div class="row" infinite-scroll="updateBooks()" infinite-scroll-distance="2" infinite-scroll-disabled="!metadata.next">
-          <div class="col" ng-class="{'col-md-3':!menuopen,'col-md-4':menuopen }" ng-repeat="book in books">
-              <div class="panel panel-default">
-
-                  <div class="panel-body">
-                      <div>
-                        <a ui-sref="app.books.modal({id:book.id})"> <img class="book-list-image" ng-src="{{book.images[0].image_thumb}}" alt=""> </a>
-                      </div>
-                      <a ui-sref="app.books.modal({id:book.id})"> <b>{{book.title}}</b></a>
-                      <div>
-                          € {{ book.price|number:2 }}
-                      </div>
-                      <div>
-                          {{ book.description }}
-                      </div>
-                      <div>
-
-                      </div>
-                      <div>
-                          <span ng-repeat="author in book.authors">
-                              {{author.author}}
-                          </span>
-                      </div>
-                      <!-- buttons for chart and wishlist when user is NOT logged -->
-                      <div>
-                          <button ng-if="!appUser.username" class="btn btn-primary" <a ui-sref="modal.login">Add to wish list</a></button>
-                          <button ng-if="!appUser.username" class="btn btn-primary" <a ui-sref="modal.login">Add to cart</a></button>
-                      </div>
-
-
-
-
-                      <!-- buttons for chart and wishlist when user is logged -->
-                      <div ng-if="appUser.username">
-                          <button ng-if="!book.is_wished" class="btn btn-primary" ng-click="addBookToWishes(book)">Add to wish list</button>
-                          <button ng-if="book.is_wished" class="btn btn-danger" ng-click="removeBookFromWishes(book)">Remove from wish list</button>
-
-                          <button ng-if="!book.in_cart" class="btn btn-primary" ng-click="addBookToCart(book)">Add to cart</button>
-                          <button ng-if="book.in_cart" class="btn btn-danger" ng-click="removeBookFromCart(book)">Remove from cart</button>
-                      </div>
-
-                  </div>
-                  <div class="panel-footer">
-                      <span class="pull-right">{{book.bookshop_name}}</span>
-                      <div class="clearfix"></div>
-
-                  </div>
+          <div class="col m3"  ng-repeat="book in books">
+            <div class="card">
+              <div class="card-image waves-effect waves-block waves-light">
+                <img class="activator" ng-src="{{book.images[0].image_thumb}}" alt=""> </a>
               </div>
+            <div class="card-content">
+              <span class="card-title activator grey-text text-darken-4">{{book.title}} <i class="mdi-image-control-point right"></i></span>
+              <p>€ {{ book.price|number:2 }}</p>
+
+              <p> <button ng-if="!appUser.username" class="waves-effect waves-teal btn-flat" <a ui-sref="modal.login">Add to wish list</a></button></p>
+              <p><button ng-if="!appUser.username" class="waves-effect waves-teal btn-flat" <a ui-sref="modal.login">Add to cart</a></button></p>
+              <p>{{book.bookshop_name}}<p>
+
+              <div ng-if="appUser.username">
+                  <button ng-if="!book.is_wished" class="btn btn-primary" ng-click="addBookToWishes(book)">Add to wish list</button>
+                  <button ng-if="book.is_wished" class="btn btn-danger" ng-click="removeBookFromWishes(book)">Remove from wish list</button>
+
+                  <button ng-if="!book.in_cart" class="btn btn-primary" ng-click="addBookToCart(book)">Add to cart</button>
+                  <button ng-if="book.in_cart" class="btn btn-danger" ng-click="removeBookFromCart(book)">Remove from cart</button>
+              </div>
+            </div>
+            <div class="card-reveal">
+              <span class="card-title grey-text text-darken-4">{{book.title}} <i class="mdi-navigation-close right"></i></span>
+              <p>{{ book.description }}</p>
+            </div>
+            </div>
           </div>
       </div>
-      <!-- /#page-content-wrapper -->
     </div>
-   </div>
-</div>
- <!-- /#wrapper -->
