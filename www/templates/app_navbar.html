@@ -1,23 +1,23 @@
-<div class="navbar-fixed">
-<nav>
-  <div class="nav-wrapper" >
-    <a class="brand-logo center" ui-sref="app.home">Airbook</a>
-
-      <ul id="nav-mobile" class="left hide-on-med-and-down">
-        <li class="active"><a ui-sref="app.books">books</a></li>
-      </ul>
 
 
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-        <li><a ui-sref="modal.cart">Cart</a></li>
-        <li><a ui-sref="modal.wish">Wishlist</a></li>
+<div ng-controller="AppCtrl">
+  <md-content>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <h2><span><a ui-sref="app.home">Airbook</a></span> </h2>
+        <span flex></span>
+
+        <h3><span><a ui-sref="app.books">books</a></span></h3>
+        <span flex></span>
 
 
-        <li ng-if="!appUser.username"><a ui-sref="modal.login">Login</a></li>
+        <md-button ui-sref="modal.cart"> Cart </md-button>
+        <md-button ui-sref="modal.wish"> Wishlist </md-button>
+
+        <md-button ng-if="!appUser.username"><a ui-sref="modal.login">Login</a></md-button>
         <span class="navbar-text">{{appUser.username}}</span>
-        <li ng-if="appUser.username"> <a ng-click="logout()">Logout</a></li>
-      </ul>
+        <md-button ng-if="appUser.username"> <a ng-click="logout()">Logout</a></md-button>
+      </md-toolbar>
 
-  </div>
-</nav>
+  </md-content>
 </div>
