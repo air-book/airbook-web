@@ -1,5 +1,4 @@
 
-
 <div ng-controller="AppCtrl">
   <md-content>
     <md-toolbar>
@@ -17,7 +16,6 @@
         <md-button ng-if="!appUser.username"><a ui-sref="modal.login">Login</a></md-button>
         <span class="navbar-text">{{appUser.username}}</span>
         <md-button ng-if="appUser.username"> <a ng-click="logout()">Logout</a></md-button>
-      </md-toolbar>
-
+    </md-toolbar>
   </md-content>
 </div>
