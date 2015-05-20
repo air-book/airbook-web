@@ -1,84 +1,117 @@
-<header>
-  <div class="container"><a href="#" data-activates="nav-mobile" class="button-collapse top-nav" data-sidenav="left" data-closeonclick="false">
-    <i class="mdi-navigation-menu"></i></a></div>
-  <ul id="nav-mobile" class="side-nav fixed">
-      <li class="bold"><a ui-sref="app.home" class="waves-effect waves-teal">Airbook</a></li>
-
-
-            <li class="no-padding">
-              <ul>
-                <li>
-                  <form action="#">
-                    <p class="range-field">
-                      <label>Prezzo</label>
-                      <input type="range" id="slider" min="0" max="1000"  step="5" ng-model="rangeFilter" on-stop-slide= "updatePriceRange()" />
-                    </p>
-                  </form>
-                </li>
-              </ul>
-            </li>
-
-
-      <li class="no-padding">
-        <ul>
-          <li>
-            <div class="input-field col s6">
-              <input value="Alvin" id="title" type="text" class="validate" ng-model="filters.title_contains">
-              <label class="active" for="title">Titolo</label>
-            </div>
-          </li>
-        </ul>
-      </li>
-  </ul>
-</header>
-
 <main>
-    <div class="container-fluid">
-      <!-- Page Content -->
-      <div class="row" infinite-scroll="updateBooks()" infinite-scroll-distance="2" infinite-scroll-disabled="!metadata.next">
-          <div class="col m3"  ng-repeat="book in books">
 
-<md-content>
-  <md-card>
-    <img ng-src="{{book.images[0].image_thumb}}" class="md-card-image" alt="Washed Out">
-    <md-card-content>
-      <h2 class="md-title">{{book.title}}</h2>
-      <p>
-        <p>€ {{ book.price|number:2 }}</p>
-
-        <p> <button ng-if="!appUser.username" class="waves-effect waves-teal btn-flat" <a ui-sref="modal.login">Add to wish list</a></button></p>
-        <p><button ng-if="!appUser.username" class="waves-effect waves-teal btn-flat" <a ui-sref="modal.login">Add to cart</a></button></p>
-        <p>{{book.bookshop_name}}<p>
-
-        <div ng-if="appUser.username">
-            <button ng-if="!book.is_wished" class="btn btn-primary" ng-click="addBookToWishes(book)">Add to wish list</button>
-            <button ng-if="book.is_wished" class="btn btn-danger" ng-click="removeBookFromWishes(book)">Remove from wish list</button>
-
-            <button ng-if="!book.in_cart" class="btn btn-primary" ng-click="addBookToCart(book)">Add to cart</button>
-            <button ng-if="book.in_cart" class="btn btn-danger" ng-click="removeBookFromCart(book)">Remove from cart</button>
-        </div>
-      </p>
-    </md-card-content>
-    <div class="md-actions" layout="row" layout-align="end center">
-      <md-button>Action 1</md-button>
-      <md-button>Action 2</md-button>
-    </div>
-  </md-card>
-
-</md-content>
+  <div ng-controller="SidebarCtrl" layout="column" style="height:500px;">
+    <section layout="row" flex>
+      <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+        <md-toolbar class="md-theme-indigo">
+          <h1 class="md-toolbar-tools"><a ui-sref="app.home">Airbook</a></h1>
+        </md-toolbar>
+        <md-content layout-padding ng-controller="LeftCtrl">
+          <md-button ng-click="close()" class="md-primary" hide-gt-md>
+            Close Sidenav Left
+          </md-button>
+          <li class="no-padding">
+            <ul>
+              <li>
+                <form action="#">
+                  <p class="range-field">
+                    <label>Prezzo</label>
+                    <input type="range" id="slider" min="0" max="1000"  step="5" ng-model="rangeFilter" on-stop-slide= "updatePriceRange()" />
+                  </p>
+                </form>
+              </li>
+            </ul>
+          </li>
 
 
-
-        
-
-
-
-
-
-
-
-
+    <li class="no-padding">
+      <ul>
+        <li>
+          <div class="input-field col s6">
+            <input value="Alvin" id="title" type="text" class="validate" ng-model="filters.title_contains">
+            <label class="active" for="title">Titolo</label>
           </div>
-      </div>
-    </div>
+        </li>
+      </ul>
+    </li>
+
+        </md-content>
+      </md-sidenav>
+      <md-content flex layout-padding>
+
+
+        <div class="container-fluid">
+            <!-- Page Content -->
+            <div>
+              <md-button ng-click="toggleLeft()"
+                class="md-primary" hide-gt-md>
+                Toggle left
+              </md-button>
+            </div>
+            <div class="row" infinite-scroll="updateBooks()" infinite-scroll-distance="2" infinite-scroll-disabled="!metadata.next">
+
+
+            <md-grid-list
+                  md-cols-sm="1" md-cols-md="2" md-cols-gt-md="6"
+                  md-row-height-gt-md="1:1" md-row-height="2:2"
+                  md-gutter="12px" md-gutter-gt-sm="8px" >
+              <md-grid-tile  ng-repeat="book in books" md-rowspan="3" md-colspan="2" md-colspan-sm="1">
+
+
+
+        <md-content>
+        <md-card>
+          <img ng-src="{{book.images[0].image_thumb}}" class="md-card-image" alt="Washed Out">
+          <md-card-content>
+            <h2 class="md-title">{{book.title}}</h2>
+            <p>
+              <p>€ {{ book.price|number:2 }}</p>
+
+              <p> <button ng-if="!appUser.username" class="waves-effect waves-teal btn-flat" <a ui-sref="modal.login">Add to wish list</a></button></p>
+              <p><button ng-if="!appUser.username" class="waves-effect waves-teal btn-flat" <a ui-sref="modal.login">Add to cart</a></button></p>
+              <p>{{book.bookshop_name}}<p>
+
+              <div ng-if="appUser.username">
+                  <button ng-if="!book.is_wished" class="btn btn-primary" ng-click="addBookToWishes(book)">Add to wish list</button>
+                  <button ng-if="book.is_wished" class="btn btn-danger" ng-click="removeBookFromWishes(book)">Remove from wish list</button>
+
+                  <button ng-if="!book.in_cart" class="btn btn-primary" ng-click="addBookToCart(book)">Add to cart</button>
+                  <button ng-if="book.in_cart" class="btn btn-danger" ng-click="removeBookFromCart(book)">Remove from cart</button>
+              </div>
+            </p>
+          </md-card-content>
+          <div class="md-actions" layout="row" layout-align="end center">
+            <md-button>Action 1</md-button>
+            <md-button>Action 2</md-button>
+          </div>
+        </md-card>
+
+        </md-content>
+
+        </md-grid-tile>
+        </md-grid-list>
+
+
+            </div>
+          </div>
+
+
+
+
+
+
+
+
+        <div flex></div>
+      </md-content>
+
+    </section>
+  </div>
+
+
+
+
+
+
+
   </main>
